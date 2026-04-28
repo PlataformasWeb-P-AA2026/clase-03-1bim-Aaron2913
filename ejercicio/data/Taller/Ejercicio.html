@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Instituciones</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  </head>
+
+  <body>
+    <h1>Instituciones Educativas</h1>
+
+    <ul id="mensajeFinal"></ul>
+
+    <button type="button" id="obtenerInformacion">
+      Obtener información
+    </button>
+
+    <button type="button" id="limpiarInformacion">
+      Limpiar información
+    </button>
+  </body>
+
+  <script>
+    $(document).ready(function () {
+      var url = "data_instituciones.json";
+
+      // BOTÓN: obtener información
+      $("#obtenerInformacion").click(function () {
+
+        $.ajax({
+          dataType: "json",
+          url: url
+        }).then(function (data) {
+
+          for (var i = 0; i < data.length; i++) {
+
+            console.log(data[i]);
+
+            $("#mensajeFinal").append(
+              "<li>" +
+                "<b>AMIE:</b> " + data[i].AMIE + " | " +
+                "<b>Nombre:</b> " + data[i]["Nombre-Educativa"] + " | " +
+                "<b>Provincia:</b> " + data[i].Provincia + " | " +
+                "<b>Cantón:</b> " + data[i].Canton + " | " +
+                "<b>Estudiantes:</b> " + data[i].Numeroestudiantes +
+              "</li>"
+            );
+
+          }
+
+        });
+
+      });
+
+      // BOTÓN: limpiar información
+      $("#limpiarInformacion").click(function () {
+        $("#mensajeFinal").empty();
+      });
+
+    });
+  </script>
+</html>
